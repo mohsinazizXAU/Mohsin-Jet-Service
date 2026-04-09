@@ -1,0 +1,373 @@
+/* Base and Resets */
+:root {
+    --bg-black: #050505;
+    --bg-beige: #E6E2D3;
+    --text-light: #F4F4F4;
+    --text-dark: #121212;
+    --accent-blue: #A2C4D9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-black);
+    color: var(--text-light);
+    overflow-x: hidden;
+}
+
+/* Typography Utilities */
+/* NOTE: Do NOT set font-weight globally on headings here.
+   Each element that needs a specific weight has it set directly
+   on its own selector to prevent inheritance conflicts. */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Sticky Header */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    /* backdrop-filter: blur(12px); */
+    /* background: rgba(255, 255, 255, 0.05); */
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+}
+
+.nav-links a {
+    margin-right: 1.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-blue);
+}
+
+.nav-contact a {
+    margin-left: 1rem;
+    font-size: 0.8rem;
+}
+
+.nav-contact a:hover {
+    color: var(--accent-blue);
+}
+
+/* Sequences and Layouts */
+.scroll-sequence {
+    height: 400vh;
+    /* Adds scroll length for the animation */
+    position: relative;
+    background-color: var(--bg-black);
+}
+
+.sticky-container {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* Hero Texts */
+.hero-overlay-text {
+    position: absolute;
+    /* z-index: 10; */
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.hero-title {
+    /* Fully independent — changing .hero-subtexts will NEVER affect this */
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    /* margin-bottom: 2rem; */
+    text-transform: uppercase;
+    font-weight: 500;   /* Change only here to update the title weight */
+    line-height: 1.1;
+    padding-top: 330px;
+}
+
+.hero-subtexts {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7vw;
+    /* font-size and font-weight are set on .left-text/.right-text directly */
+    letter-spacing: 2px;
+}
+
+.hero-subtexts .left-text,
+.hero-subtexts .right-text {
+    /* Change font-size and font-weight ONLY here — fully isolated from .hero-title */
+    font-size: 4rem;    /* Change this to resize left/right text */
+    font-weight: 700;   /* Change this to adjust left/right text weight */
+    line-height: 1;
+    display: inline-block;
+    padding-bottom: 260px;
+}
+ .left-text 
+{
+    position: relative;
+    right: 20px;
+    bottom: 135px;
+
+}
+
+.right-text
+{
+    position: relative;
+    left: 40px;
+    top: 40px;
+    
+    
+}
+    
+
+
+
+/* About Section */
+.content-section {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 10vw;
+    text-align: center;
+}
+
+.about-bg {
+    background-color: var(--accent-blue);
+    color: var(--text-dark);
+}
+
+.about-content h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
+}
+
+.about-content p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    max-width: 800px;
+    font-weight: 300;
+}
+
+/* Fleet Section */
+.fleet-bg {
+    background-color: var(--bg-beige);
+    color: var(--text-dark);
+}
+
+.fleet-text {
+    position: absolute;
+    z-index: 10;
+    font-size: 6vw;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.fly {
+    transform: translateY(-5vw);
+}
+
+.luxury {
+    transform: translateY(5vw);
+}
+
+.fleet-specs {
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spec-grid {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.spec-item h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+}
+
+.spec-item p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Advantages */
+.advantages-bg {
+    background-color: #111;
+    color: var(--text-light);
+}
+
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
+.advantages-grid {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.advantage-card {
+    text-align: center;
+    max-width: 350px;
+}
+
+.advantage-card img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.5s;
+}
+
+.advantage-card img:hover {
+    transform: scale(1.03);
+}
+
+/* Global Section */
+.global-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-text {
+    position: absolute;
+    font-size: 20vw;
+    font-weight: 600;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+    z-index: 1;
+    user-select: none;
+}
+
+#globe-container {
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+}
+
+#globe-container:active {
+    cursor: grabbing;
+}
+
+.city-scroller {
+    z-index: 3;
+    position: absolute;
+    color: var(--text-light);
+    font-size: 4rem;
+    text-align: center;
+    font-weight: 300;
+}
+
+.city-scroller ul {
+    list-style: none;
+    animation: scrollCities 20s linear infinite;
+}
+
+.city-scroller li {
+    margin: 2rem 0;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.city-scroller li:hover {
+    opacity: 1;
+}
+
+@keyframes scrollCities {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+/* Footer & Button */
+.footer {
+    padding: 3rem;
+    text-align: center;
+    background: #000;
+    border-top: 1px solid #222;
+}
+
+#book-btn {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-light);
+    color: var(--text-dark);
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s, background 0.3s;
+}
+
+#book-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    background: #fff;
+}
