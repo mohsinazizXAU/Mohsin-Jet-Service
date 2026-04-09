@@ -35,6 +35,93 @@
                     <span class="right-text">Mohsin Jet<br>Service</span>
                 </div>
             </div>
+
+              <!-- About Text -->
+            <div class="about-overlay-text" id="about-text"
+                style="position: absolute; top:50%; left:50%; transform:translate(-50%, -40%); opacity: 0; width: 100%; pointer-events: none; text-align: center;">
+                <div class="about-content"
+                    style="background: rgba(162, 196, 217, 0.85); padding: 4rem; border-radius: 20px; color: #121212; display: inline-block; max-width: 800px; backdrop-filter: blur(10px);">
+                    <h2 style="font-size: 3rem; margin-bottom: 2rem; font-weight: 300;">The Art of Private Aviation</h2>
+                    <p style="font-size: 1.5rem; line-height: 1.8; font-weight: 300;">Experience seamless, unbounded
+                        travel. We bring together state-of-the-art aircraft, impeccable service, and a dedication to
+                        absolute luxury. Reach your destination in unparalleled comfort.</p>
+                </div>
+            </div>
+
+            <!-- Fleet Text -->
+            <div class="fleet-text" id="fleet-text" style="opacity: 0;">
+                <span class="fly">Fly in</span>
+                <span class="luxury">Luxury</span>
+            </div>
+
+            <!-- Fleet Specs -->
+            <div class="fleet-specs-overlay" id="fleet-specs"
+                style="position: absolute; bottom: 5%; width: 100%; opacity: 0; text-align: center;">
+                <div class="spec-grid"
+                    style="display: flex; justify-content: center; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); padding: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="spec-item" style="color: #fff;">
+                        <h3 style="font-size: 2rem; margin-bottom: 1rem; font-weight: 300;">Gulfstream 650ER</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.6; font-weight: 300;">Range: 7,500 nm | Speed: Mach
+                            0.925 | Passengers: up to 19</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section id="advantages" class="content-section advantages-bg">
+        <h2 class="section-title">The Jesko Advantages</h2>
+        <div class="advantages-grid">
+            <div class="advantage-card">
+                <img src="assets/luxury_cabin.png" alt="Luxury Cabin">
+                <h3>Supreme Comfort</h3>
+            </div>
+            <div class="advantage-card">
+                <img src="assets/dog_in_cabin.png" alt="Pet Friendly">
+                <h3>Pet Friendly Journeys</h3>
+            </div>
+            <div class="advantage-card">
+                <img src="assets/premium_catering.png" alt="Premium Catering">
+                <h3>Gourmet Catering</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Section -->
+    <section id="global" class="global-section" style="position: relative;">
+        <div class="bg-text" style="pointer-events: none;">GLOBAL</div>
+        <div id="globe-container"
+            style="position: absolute; width: 100vw; height: 100vh; z-index: 2; pointer-events: auto;"></div>
+        <div class="city-scroller">
+            <ul>
+                <li>SEOUL</li>
+                <li>MELBOURNE</li>
+                <li>TOKYO</li>
+                <li>DUBAI</li>
+                <li>LONDON</li>
+                <li>NEW YORK</li>
+                <li>SINGAPORE</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Jesko Jets. All rights reserved.</p>
+    </footer>
+
+    <!-- Persistent Book Button -->
+    <button id="book-btn">
+        Book the Flight <span class="icon">✈️</span>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/three"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
