@@ -428,9 +428,9 @@ canvas {
 
     .nav-links a {
         margin: 0;
-        font-size: 0.85rem;
+        font-size: 0.75rem; /* Reduced for better fit */
         font-weight: 500;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
     }
 
     .hero-title {
@@ -529,8 +529,8 @@ canvas {
     }
 
     .nav-links a {
-        font-size: 0.70rem;
-        letter-spacing: 2px;
+        font-size: 0.65rem; /* Even smaller for mobile */
+        letter-spacing: 1px;
     }
 
     .nav-contact {
@@ -542,15 +542,15 @@ canvas {
     }
 
     .nav-contact a {
-        font-size: 0.75rem;
+        font-size: 0.65rem; /* Smaller for mobile */
         margin-left: 0;
         color: rgba(255, 255, 255, 0.8);
     }
 
     .hero-title {
-        font-size: 1.5rem;
-        padding-top: 18vh;
-        letter-spacing: 5px;
+        font-size: 1.4rem;
+        margin-top: 25vh; /* Pushed down more to avoid header */
+        letter-spacing: 4px;
     }
 
     .hero-subtexts {
@@ -559,14 +559,17 @@ canvas {
     }
 
     .hero-subtexts .left-text {
-        font-size: 2.1rem;
-        margin-bottom: 20px;
+        font-size: 1.8rem; /* Smaller to prevent collision */
+        margin-bottom: 25px;
+        text-align: center; /* Center for mobile stacks */
+        width: 100%;
     }
 
     .hero-subtexts .right-text {
-        font-size: 2.1rem;
-        margin-top: -20px;
-        /* Stronger overlap for narrow screens */
+        font-size: 1.8rem; /* Smaller to prevent collision */
+        margin-top: 15px; /* Pushed down instead of overlapping */
+        text-align: center;
+        width: 100%;
     }
 
     .about-content {
@@ -587,11 +590,11 @@ canvas {
     }
 
     #book-btn {
-        padding: 0.9rem 2.5rem;
-        font-size: 1.1rem;
+        padding: 0.7rem 1.8rem; /* Scaled down */
+        font-size: 0.9rem; /* Smaller text */
         width: auto;
         border-radius: 30px;
-        letter-spacing: 2px;
-        bottom: 1.5rem;
+        letter-spacing: 1px;
+        bottom: 1rem;
     }
 }
