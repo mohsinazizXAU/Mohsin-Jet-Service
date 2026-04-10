@@ -3,12 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Premium Preloader -->
+    <div id="preloader" style="position: fixed; inset: 0; background: #050505; z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 0 20px; text-align: center;">
+        <span style="color: #A2C4D9; font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 300; animation: pulseFade 1.5s infinite;">MOHSIN JET SERVICE</span>
+        <style>@keyframes pulseFade { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.3; } }</style>
+    </div>
+
     <!-- Fixed Header -->
     <header id="navbar">
         <div class="nav-links">
@@ -37,7 +43,7 @@
                 </div>
             </div>
 
-              <!-- About Text -->
+            <!-- About Text -->
             <div class="about-overlay-text" id="about-text"
                 style="position: absolute; top:50%; left:50%; transform:translate(-50%, -40%); opacity: 0; width: 100%; pointer-events: none; text-align: center;">
                 <div class="about-content"
@@ -120,7 +126,8 @@
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/three"></script>
+    <!-- Explicitly fetch latest UMD build instead of ES Module to ensure globe.gl compatibility -->
+    <script src="https://unpkg.com/three/build/three.min.js"></script>
     <script src="https://unpkg.com/globe.gl"></script>
     <script src="script.js"></script>
 </body>

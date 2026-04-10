@@ -24,15 +24,32 @@ function initCombinedSequence() {
     const images = [];
     const obj = { frame: 1 };
 
-    // Preload images
+    // Progressive image preloading to prevent network congestion lag
     for (let i = 1; i <= frameCount; i++) {
         const img = new Image();
-        img.src = `assets/sequence/frame-${pad(i, 3)}.jpg`;
+        if (i <= 5) {
+            // Load first few critical frames immediately
+            img.src = `assets/sequence/frame-${pad(i, 3)}.jpg`;
+        } else {
+            // Defer loading of remaining frames 
+            setTimeout(() => {
+                img.src = `assets/sequence/frame-${pad(i, 3)}.jpg`;
+            }, Math.min(2000, i * 10)); // max 2s delay
+        }
         images.push(img);
     }
 
     images[0].onload = () => {
+        // Draw the very first frame to the canvas
         context.drawImage(images[0], 0, 0, canvas.width, canvas.height);
+        
+        // Now that the canvas is ready, dismiss the preloader
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            preloader.style.transition = 'opacity 0.6s ease-in-out';
+            preloader.style.opacity = '0';
+            setTimeout(() => { preloader.remove(); }, 600);
+        }
     };
 
     function render() {
@@ -153,7 +170,8 @@ function initGlobe() {
         .labelResolution(2);
 
     // Initial viewpoint (Center on Dubai)
-    globe.pointOfView({ lat: 25.2, lng: 55.2, altitude: 2.0 });
+    let isMobile = window.innerWidth <= 768;
+    globe.pointOfView({ lat: 25.2, lng: 55.2, altitude: isMobile ? 3.5 : 2.0 });
 
     // Globe controls & auto-rotation
     globe.controls().autoRotate = true;
@@ -176,6 +194,12 @@ function initGlobe() {
     window.addEventListener('resize', () => {
         globe.width(container.clientWidth);
         globe.height(container.clientHeight);
+        
+        const currentIsMobile = window.innerWidth <= 768;
+        if (currentIsMobile !== isMobile) {
+            isMobile = currentIsMobile;
+            globe.pointOfView({ altitude: isMobile ? 3.5 : 2.0 });
+        }
     });
 }
 
