@@ -18,59 +18,84 @@ function initCombinedSequence() {
     if (!canvas) return;
     const context = canvas.getContext("2d");
 
-    canvas.width = 1920;
-    canvas.height = 1080;
+    // Dynamic internal resolution for performance optimization
+    const isMobile = window.innerWidth <= 768;
+    canvas.width = isMobile ? 1280 : 1920; // Lower internal resolution on mobile for speed
+    canvas.height = isMobile ? 720 : 1080;
 
     const images = [];
     const obj = { frame: 1 };
+    let lastRenderedFrame = -1;
 
-    // Progressive image preloading to prevent network congestion lag
+    // Responsive Image Loading logic
     for (let i = 1; i <= frameCount; i++) {
         const img = new Image();
-        if (i <= 5) {
-            // Load first few critical frames immediately
+        images.push(img);
+        
+        // Priority loading for first frame
+        if (i === 1) {
             img.src = `assets/sequence/frame-${pad(i, 3)}.jpg`;
+            img.onload = () => {
+                render(); // Render immediately when first frame is ready
+                
+                // Dismiss preloader
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    preloader.style.transition = 'opacity 0.6s ease-in-out';
+                    preloader.style.opacity = '0';
+                    setTimeout(() => { preloader.remove(); }, 600);
+                }
+            };
         } else {
-            // Defer loading of remaining frames 
+            // Staggered loading to prevent mobile network congestion
+            // Loads images in batches to ensure smooth scroll even during load
             setTimeout(() => {
                 img.src = `assets/sequence/frame-${pad(i, 3)}.jpg`;
-            }, Math.min(2000, i * 10)); // max 2s delay
+            }, i * (isMobile ? 15 : 5)); 
         }
-        images.push(img);
     }
 
-    images[0].onload = () => {
-        // Draw the very first frame to the canvas
-        context.drawImage(images[0], 0, 0, canvas.width, canvas.height);
-        
-        // Now that the canvas is ready, dismiss the preloader
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.style.transition = 'opacity 0.6s ease-in-out';
-            preloader.style.opacity = '0';
-            setTimeout(() => { preloader.remove(); }, 600);
-        }
-    };
-
+    // High-performance Render function with "Object-Fit: Cover" math
     function render() {
-        let index = Math.max(0, Math.round(obj.frame) - 1);
-        if (images[index] && images[index].complete) {
+        const frameIndex = Math.max(0, Math.round(obj.frame) - 1);
+        if (frameIndex === lastRenderedFrame) return; // Skip if same frame
+        
+        const img = images[frameIndex];
+        if (img && img.complete) {
+            // Calculate cover sizing (ensures image fills screen without stretching)
+            const imgRatio = 1920 / 1080; // Hardcoded based on source aspect ratio
+            const canvasRatio = canvas.width / canvas.height;
+            
+            let drawWidth, drawHeight, offsetX, offsetY;
+
+            if (imgRatio > canvasRatio) {
+                drawHeight = canvas.height;
+                drawWidth = canvas.height * imgRatio;
+            } else {
+                drawWidth = canvas.width;
+                drawHeight = canvas.width / imgRatio;
+            }
+
+            offsetX = (canvas.width - drawWidth) / 2;
+            offsetY = (canvas.height - drawHeight) / 2;
+
             context.clearRect(0, 0, canvas.width, canvas.height);
-            context.drawImage(images[index], 0, 0, canvas.width, canvas.height);
+            context.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+            lastRenderedFrame = frameIndex;
         }
     }
 
-    // Master Timeline for the entire combined sequence
+    // GSAP ScrollTrigger Configuration
     let tl = gsap.timeline({
         scrollTrigger: {
-            scrub: 0.5,
+            scrub: isMobile ? 0.3 : 0.5, // Faster scrub on mobile for "snappier" feel
             trigger: triggerSection,
             start: "top top",
             end: "bottom bottom"
         }
     });
 
-    // 1. Animate Canvas frames (0 to total duration 10)
+    // 1. Animate Canvas frames
     tl.to(obj, {
         frame: frameCount,
         snap: "frame",
@@ -79,22 +104,24 @@ function initCombinedSequence() {
         duration: 10
     }, 0);
 
-    // 2. Fade out Hero text (happens between duration 1 and 2)
-    tl.to("#hero-text", { opacity: 0, y: -50, duration: 1 }, 1);
-
-    // 3. Fade in About text (happens between 2.5 and 3.5)
+    // 2. Text Overlays (Fade logic)
+    tl.to("#hero-text", { opacity: 0, y: isMobile ? -30 : -50, duration: 1 }, 1);
     tl.to("#about-text", { opacity: 1, y: 0, duration: 1 }, 2.5);
-
-    // 4. Fade out About text (happens between 4.5 and 5.5)
-    tl.to("#about-text", { opacity: 0, y: -50, duration: 1 }, 4.5);
-
-    // 5. Fade in Fleet text (happens between 6.5 and 7.5)
+    tl.to("#about-text", { opacity: 0, y: isMobile ? -30 : -50, duration: 1 }, 4.5);
     tl.to("#fleet-text", { opacity: 1, duration: 1 }, 6.5);
     tl.fromTo(".fly", { y: -50 }, { y: 0, duration: 1 }, 6.5);
     tl.fromTo(".luxury", { y: 50 }, { y: 0, duration: 1 }, 6.5);
-
-    // 6. Fade in Fleet Specs (happens between 8.5 and 9.5)
     tl.to("#fleet-specs", { opacity: 1, y: -20, duration: 1 }, 8.5);
+
+    // Handle Window Resize for resolution adjustment
+    window.addEventListener('resize', () => {
+        const newIsMobile = window.innerWidth <= 768;
+        if (newIsMobile !== (canvas.width <= 1280)) {
+            canvas.width = newIsMobile ? 1280 : 1920;
+            canvas.height = newIsMobile ? 720 : 1080;
+            render();
+        }
+    });
 }
 
 // Initialize the combined sequence
